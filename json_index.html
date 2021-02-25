@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Get JSON Data from Back end</title>
+</head>
+<body>
+	<h2>get Data and display in page using PHP JSON read.</h2>
+
+	<div id="load-data">
+		<table id="load-table" border="1" cellpadding="10px" width="100%">
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Salary</th>
+				<th>Age</th>
+			</thead>
+		</table>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+	<script>
+		// Method 1
+		// $.getJSON(
+		// 	"fetch_json.php",
+		// 	function(data){
+		// 		$.each(data,function(key, value){		//you can use any name for key and value
+		// 			//$('#load-data').html(value.id+" "+value.name+"<br>"); this will load only last entry
+		// 			$('#load-data').append(value.id+" "+value.name+" "+value.salary+" "+value.age+"<br>");
+		// 		});
+		// 	}
+		// );
+
+		//Method 2 using ajax function
+		$.ajax({
+			url: "fetch_json.php",
+			type: "POST",
+			dataType: "JSON",			//Important to mention JSON for json data. by Default considered as a TEXT Format
+			//data: {id: 2},				//We are passing static data to disply record of 2
+			success: function(data){
+				$.each(data,function(key,value){
+					$('#load-table').append("<tr><td>"+value.id+"</td><td>"+value.name+" </td><td>"+value.salary+"</td><td>"+value.age+"</td></tr>");
+				});
+			}
+		});
+	</script>
+</body>
+</html>

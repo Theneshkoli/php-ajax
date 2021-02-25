@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Load Data using Jquery AJAX PHP</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<h2>Load Data using Jquery AJAX PHP</h2>
+	<input type="text" placeholder="search Here" id="search_field">
+	<!-- <button id="start_loading">Load DATA</button> -->
+	<p><mark class="msg"></mark></p>
+	<form id="Add_data_form">
+		<input type="text" name="person_name" id="p_name" placeholder="Name">
+		<input type="text" name="person_salary" id="p_salary" placeholder="Salary">
+		<input type="text" name="person_age" id="p_age" placeholder="Age">
+	</form>	
+	<button id="submit_data">Add Data</button>
+
+	<form id="with_serialize">
+		<input type="text" name="person_name" id="p_name2" placeholder="Name">
+		<select name="person_salary" id="p_salary2">
+			<option value="10000">10000</option>
+			<option value="15000">15000</option>
+			<option value="20000">20000</option>
+			<option value="25000">25000</option>
+			<option value="30000">30000</option>
+			<option value="35000">Salary</option>
+		</select>
+		<input type="number" name="person_age" id="p_age2" placeholder="Age">
+		<label><input type="radio" name="gender" value="male" id="gender"> Male</label>
+		<label><input type="radio" name="gender" value="female" id="gender"> Female </label>
+		<input type="submit" value="Add Data" id="submit_data2">
+	</form>
+	<div id="response"></div>
+	<div id="modal">
+		<div id="modal-form">
+			<div id="close-btn">X</div>
+			<h2>Edit Form</h2>
+			<table>
+				<tbody id="update-modal-table">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="loaded">
+
+	</div>
+	
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script> 
+	$(document).ready(function(){
+		// Simple AJAX loading code starts here
+
+		// $("#start_loading").on('click',function(e){		//e is used as an event
+		// 	$.ajax({
+		// 		url		: 'backend_file.php',
+		// 		type	: 'POST',
+		// 		//data 	: '',							//not use to load simple data
+		// 		success	: function(data){				//pass the same data to html
+		// 			$('#loaded').html(data);
+		// 		}
+		// 	});
+		// });
+
+		// Simple AJAX loading code ends here
+		//----------X----------------x----------------X------------------x---------
+		// Insert using AJAX code starts here
+			//Load all records without pagination on document ready starts here
+			// function loadData(){
+			// 	$.ajax({
+			// 		url : 'backend_file.php',
+			// 		type: 'post',
+			// 		success: function(result){
+			// 			$('#loaded').html(result);
+			// 		}
+			// 	});
+			// }
+			// loadData();
+			//Load all records without pagination on document ready ends here
+			//Load all records with pagination on document ready starts here
+			function loadData(page){
+				$.ajax({
+					url		: 'backend_file.php',
+					type 	: 'POST',
+					data  	: {page_no:page},
+					success : function(response){
+						$('#loaded').html(response);
+					}
+				});
+			}
+			loadData();
+			$(document).on('click','#pagination a',function(e){
+				e.preventDefault();			//here, we are preventing href default function pf anchor tag
+				let page = $(this).attr('id');
+
+				loadData(page);
+			});
+			//Load all records with pagination on document ready ends here
+
+		$("#submit_data").on("click",function(e){
+			e.preventDefault();
+			let a = $("#p_name").val();
+			let b = $("#p_salary").val();
+			let c = $("#p_age").val();
+
+			if(a == '' || b == '' || c == ''){
+				$('p mark.msg').html('All Fields Are required').fadeToggle(4500);
+			}else{
+				$.ajax({
+					url	: 'ajax-insert.php',
+					type: 'POST',
+					data: {per_name: a, per_sal: b, per_age: c},
+					success: function(data){
+						if(data == 1){
+							loadData();
+							$('#Add_data_form').trigger('reset');
+							$('p mark.msg').html('Date Inserted Successfully!!!').slideDown();
+						}
+						else if(data == 0){
+							$('p mark.msg').html('Data Not Inserted!!!').slideDown();
+						}
+					}
+				});
+			}
+		});
+		// Insert using AJAX code ends here
+		// Delete using AJAX code Starts here
+		$(document).on('click','.delete_me',function(){
+			if (confirm('Are you Really want to delet record?')) {
+				let d_id = $(this).data('did');
+				let element = this;
+				$.ajax({
+					url : 'ajax-insert.php',
+					type: 'POST',
+					data: {delete_id: d_id},
+					success: function(result){
+						if(result == 1){
+							$(element).closest('tr').fadeOut();
+							$('p mark.msg').html('Row Deleted Successfully!!');
+						}
+						else{
+							$('p mark.msg').html('Row not deleted');
+						}
+					}
+				});
+			}
+		});
+		// Delete using AJAX code ends here
+		// Update using AJAX code starts here
+		$(document).on('click','.edit_this',function(e){
+			e.preventDefault();
+			//modal box open
+			$('#modal').show();
+			let emp_id = $(this).data('eid');
+
+			$.ajax({
+				url : 'get-update-data.php',
+				type: 'POST',
+				data: {emp_i:emp_id},
+				success:function(output){
+					//loadData();
+					$('#update-modal-table').html(output);
+				}
+			});
+		});
+
+		$(document).on('click','.submit_update',function(){
+			let epl_name  = $('#e_name').val();
+			let epl_sal = $('#e_salary').val();
+			let epl_age = $('#e_age').val();
+			let epl_id = $('#e_eid').val();
+
+			$.ajax({
+				url : 'ajax-insert.php',
+				type: 'POST',
+				data: {ep_name:epl_name, ep_sal:epl_sal, ep_age:epl_age, ep_id:epl_id},
+				success:function(oput){
+					if(oput ==1){
+						$('#modal').hide();
+						loadData();
+						$('p mark.msg').html('Data updated Successfully!!!');
+					}else{
+						$('p mark.msg').html('Unable to update data at this moment!!!');
+					}
+				}
+			});
+		})
+		//modal close
+		$('#close-btn').on('click',function(){
+			$('#modal').hide();
+		});
+		// Update using AJAX code ends here
+		//Search field working starts here
+		$('#search_field').on('keyup',function(){
+			let value = $(this).val(); 
+
+			$.ajax({
+				url : 'backend_file.php',
+				type: 'POST',
+				data : {ser_val:value},
+				success: function(result){
+					$('#loaded').html(result);
+				}
+			});
+		});
+		//Search field working ends here
+		//Submit Data with Serialize Starts Here
+		$('#submit_data2').on('click',function(){
+			let name = $('#p_name2').val();
+			let age = $('#p_age2').val();
+
+			if(name == '' || age == '' || !$('input:radio[name=gender]').is(':checked')){
+				$('p mark.msg').fadeOut(4000);
+				$('p mark.msg').html('All Fields Are Mandatory!!');
+			}
+			else{
+				let abc =$('p mark.msg').html($('#with_serialize').serialize());
+				
+			}
+		});
+		//Submit Data with Serialize Ends Here		
+	});
+</script>
+<footer>
+	<p>Studied from 11 July 2020 to 15 July 2020 by Dinesh reffered from Youtube (Ch Name - Yahoo BABA).</p>
+	<a href="readme.html">Load OWN Study Material</a>
+</footer>
+</html>

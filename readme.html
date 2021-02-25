@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Study Material for PHP- AJAX REST API</title>
+</head>
+<body>
+	<main>
+		<h2>Study Material for PHP- AJAX REST API</h2>
+		<h5>Started on 11 Jul 2020</h5>
+		<h6>Source - youtube. Ch Name - Yahoo Baba</h6>
+	</main>
+	<article>
+		<h4><mark>Day 1 - 11 Jul 2020</mark></h4>
+		<ol>Basics OF Ajax using Jquery - <u>Load data from Backend on button click</u>
+			<li>General Syntax - $.ajax()({</li>
+			<li>Parameters/ Attributes
+				<ol>
+					<li>URL: "backend_file.php",   - backend server file name and location</li>
+					<li>type: "POST", -(if required use POST, just like form action), by default type is "GET"</li>
+					<li>data: String/Array/Javascript_Object,
+						<p>Eg. of object - {name:"Dinesh", age:"20", gender:"male"}</p>
+						<p>Eg. of String - name=Dinesh&age=20&gender=male</p>
+					</li>
+					<li>success: function(data){
+							<!-- whatever data returned by our url file -->
+						}
+					</li>
+					)}; 	<!-- opening bracket started on line number 16 -->  
+				</ol>
+			</li>
+			<li>get data in one variable, concatenate whenever necessary and echo it. Here, we used $output variable.</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 2 - 12 Jul 2020</mark></h4>
+		<ol><u>Load data from Backend on document load and add data</u>
+			<li>Write necessary AJAX function parameters and call it directly in order to load it on document ready.</li>
+			<li>No form tag is necessary in order to get input data. Just pass data using ID from input to AJAX/ Jquery. <b>eg. var a = $('#name').val();</b></li>
+			<li>While passing data using AJAX 'key is used'. And same key variable is used in backend file. 
+				<p>eg. <b>data: {per_name:a,per_sal:b,per_age:c},</b></p>
+				<p>So, in backend type below code,   <br />
+					<kbd>
+						$a_val = $_POST['per_name']; <br />
+						$b_val = $_POST['per_sal'];  <br />
+						$c_val = $_POST['per_age'];  <br />
+					</kbd>
+				</p>
+			</li>
+			<li>We Learned, how to reset form using trigger method</li>
+			<li>We displayed message also dynamically using jquery methods.</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 3 - 13 Jul 2020</mark></h4>
+		<ol><u>Delete Row using AJAX</u>
+			<li>we creted own html5 attribute with data-id and we passed row id into it</li>
+			<li>After taking from jquery to passed it to AJAX but before that we are confirming from user using <b>Confirm() javascript function</b></li>
+			<li>We've also seen the closest jquey function to remove closest 'tr'.</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 4 - 14 Jul 2020</mark></h4>
+		<ol><u>Update Row using AJAX</u>
+			<li>Creating propar modal with jquery and css</li>
+			<li>getting data in modal</li>
+			<li>updating with the new data</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 5 - 15 Jul 2020</mark></h4>
+		<ol><u>Search with Jquery</u>
+			<li>keyup function is used along with AJAX methods</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 6 - 16 Jul 2020</mark></h4>
+		<ol><u>Pagination with AJAX</u>
+			<li>While using anchor in pagination, prevent default function of anchor</li>
+			<li>Offset, limit query</li>
+			<li>PHP ceil() functio to get higher integer</li>
+			<li><u>Still not perfect in pagination</u></li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 7 - 17 Jul 2020</mark></h4>
+		<ol><u>Load More Pagination with AJAX</u>
+			<li>Kepy Aside, will learn afterwards</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 8 - 18 Jul 2020</mark></h4>
+		<ol><u>AJAX Serialize Form</u>
+			<li>Best if you have too many form fields</li>
+			<li>Workds with every form element</li>
+			<li><mark>Pending</mark></li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 9 - 19 Jul 2020 - Sunday (2 videos)</mark></h4>
+		<ol><u>AJAX $.get() and $.post() Methods</u>
+			<li>In traditional $.ajax({}) method we commonly use <u>url</u>, <u>type : POST</u>, <u>data</u>, <u>success: function(result){}</u> But in $.post() AJAX function remove the left part of " <b>:</b>" i.e url,type,success and also entire type: POST, (till comma) and use rest all methos as it is with <b>$.post()</b> function</li>
+			<li>$.get() method not taught - kept for self learning - learn later on</li>
+		</ol>
+		<ol><u>Intro To JSON - Javascript Object Notations</u>
+			<li>Used to Store and exchange data</li>
+			<li>We can use languages like JSON, XML(Extensible Markup Language) to exchage data between server and clients (user)</li>
+			<li>
+				<ul>Advantages of JSON over XML
+					<li>Text Based Format</li>
+					<li>Light Weight</li>
+					<li>Human Readable</li>
+					<li>Language Independent</li>
+					<li>Support all popular Programming langu eg. PHP, JAVA, Python</li>
+					<li>Easy to Organise and access</li>
+				</ul>
+			</li>
+			<li>
+				<ul>DisAdvantages of JSON
+					<li>Does not support comments and namespaces</li>
+					<li>Can not use it for transfer video, audio, imagesor any other binary info</li>
+				</ul>
+			</li>
+			<li>
+				<ul>Advantages of XML over JSON 
+					<li>Supports Comments and Namespaces</li>
+				</ul>
+			</li>
+			<li>Difference between Javascript Object and JSON
+				<pre>
+					<u>Writing Method 1 (Writing keys without quotation mark)</u>
+					let Person = { firstName: "Dinesh", lastName: "Jadhav"};
+					<u>Writing Method 2 (Writing keys with single or double quotation mark)</u>
+					let Person = { 'firstName': "Dinesh", 'lastName': "Jadhav"};
+					<u>Writing Method 3 (Writing keys with space, single or double quotation mark is imp this time)</u>
+					let Person = { "first Name": "Dinesh", "last Name": "Jadhav"};
+					<u>Printing in Javascript Objects and JSON is same</u>
+					alert(Person.firstName .+""+. Person.lastName);
+				</pre>
+				<pre>
+					<u>Only one method of writing (We can not use single quotation marks also while writing key)</u>
+					let Person = { "firstName": "Dinesh", "lastName": "Jadhav"};
+					<u>Printing in Javascript Objects and JSON is same</u>
+					alert(Person.firstName .+""+. Person.lastName);
+				</pre>
+			</li>
+			<li><mark>That means, in javascript objects we've three ways to erite objects, where as in JSON both keys and values are written inside double quotation mark</mark></li>
+			<li>
+				<ul>Allowed six Data types pf JSON
+					<li>String</li>
+					<li>Number</li>
+					<li>Boolean</li>
+					<li>Array</li>
+					<li>Object</li>
+					<li>NULL</li>
+				</ul>
+				<p>Example - </p>
+				<pre>
+					let Person = { 	"name" : "Divyesh",			//String Data type
+							"age"  : 30,				//Number Data type
+							"Married" : true,			//Boolean Data type
+							"kids" : ,				//NULL Data type
+							"hobbies" : ["carrom","chess"], 	//Array Data type
+							"vehicles": {				//Object Data type
+								{"type" : "car","vname":"swift"},
+								{"type" : "bike","vname":"maestro"}
+							}
+			 			}
+				</pre>
+			</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 10 - 24 Jul 2020</mark></h4>
+		<ol><u>how to read Json data using Jquery</u>
+			<li>We come to know about the difference between $.ajax({}) and $.getJSON() function</li>
+			<li>$.each() function inside JSON is accessing each row of table like loop</li>
+			<li>
+				<pre>
+					success: function(data){
+					$.each(data, function(key, value){
+						$('#load-table').append("<tr><td>"+value.userId+"</td><td>"+value.id+" </td><td>"+value.title+"</td><td>"+value.body+"</td></tr>");
+					});
+				}
+				</pre>
+				Inside Success Function data is carry forwarded in $.each() function's first parameter and the second parameter's value attribute is used in append function.
+			</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 11 - 25 Jul 2020</mark></h4>
+		<ol><u>Json_encode PHP Function</u>			
+			<li>$.html() is returning only last row where as $.append() is returning all records of DB Table</li>
+			<li>mysqli_fetch_all($result);  //is used to convert all data into index array.</li>
+			<li>mysqli_fetch_array($result, assoc) is used to convert the same data into multidimentional associative array. Also can be called as PHP array/ object.</li>
+			<li>echo json_encode($output) //Chome plugin is available to display proper JSON data in readable format.</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 12 - 26 Jul 2020</mark></h4>
+		<ol><u>Json_decode PHP Function</u>
+			<li>Is used to convert json object data into PHP array/ object</li>
+			<li>json_decode(json_object, assoc) To get data into multidimentional associative array.</li>
+			<li>By default value of assoc in above function is false, by writing 'true' in second parameter we get associative array.</li>
+		</ol>
+	</article>
+	<article>
+		<h4><mark>Day 13 - 27 Jul 2020</mark></h4>
+		<ol><u>Create and Save Dynamic JSON Files</u>
+			
+		</ol>
+	</article>
+</body>
+</html>

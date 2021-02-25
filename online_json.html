@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Read Online JSON File</title>
+</head>
+<body>
+	<h2>Read Online JSON File.</h2>
+
+	<div id="load-data">
+		<table id="load-table" border="1" cellpadding="10px" width="100%">
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Salary</th>
+				<th>Age</th>
+			</thead>
+		</table>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+				url : "https://jsonplaceholder.typicode.com/posts",
+				type: "GET",
+				success: function(data){
+					$.each(data, function(key, value){
+						$('#load-table').append("<tr><td>"+value.userId+"</td><td>"+value.id+" </td><td>"+value.title+"</td><td>"+value.body+"</td></tr>");
+					});
+				}
+			});
+		});
+	</script>
+	
+</body>
+</html>
